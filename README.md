@@ -1,4 +1,4 @@
-# Ethan's Photo Gallery
+# Heisenberg's Photo Gallery
 
 ## Tech Stack
 
@@ -8,3 +8,4 @@
 ## Special Thanks
 
 - [joway/jallery](https://github.com/joway/jallery)
+- [GetToSet/ethanwong-photo-gallery](https://github.com/GetToSet/ethanwong-photo-gallery)

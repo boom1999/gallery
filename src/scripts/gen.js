@@ -13,7 +13,7 @@ const PUBLIC_PHOTOS_DIR = './public/photos'
 
 const IS_LOCAL = process.env.IS_LOCAL || false
 
-const DOMAIN = IS_LOCAL ? '' : process.env.DOMAIN || 'assets.gettoset.cn/gallery'
+const DOMAIN = IS_LOCAL ? '' : process.env.DOMAIN || 'www.gallery.lingzhicheng.cn'
 const SCHEME = IS_LOCAL ? '' : process.env.SCHEME || 'https'
 
 function getFileExtension(filename) {
@@ -21,7 +21,6 @@ function getFileExtension(filename) {
 }
 
 function gen() {
-  shell(`rm -rf ${PUBLIC_RAW_DIR}`)
 
   const sections = []
   const sectionList = fs.readdirSync(PHOTOS_DIR).reverse()
@@ -35,9 +34,11 @@ function gen() {
     const sectionTitle = dirFullName.split('-')[1]
     const images = []
     const photosList = fs.readdirSync(dirFullName)
-    const sectionMetadata = metadata['sections'][sectionID]
+    const sectionMetadata = metadata[Number(sectionID)]
 
     fs.mkdirSync(`${PUBLIC_RAW_DIR}/${dirName}`, { recursive: true })
+    fs.mkdirSync(`${PUBLIC_PHOTOS_DIR}/${dirName}`, { recursive: true })
+
 
     photosList.forEach(function (filename) {
       if (filename.includes('thumbnail')) {
@@ -52,7 +53,7 @@ function gen() {
       const imageID = filename.split('.')[0].split('-')[0]
       let imageMetadata = {}
       if (sectionMetadata) {
-        imageMetadata = sectionMetadata[imageID]
+        imageMetadata = sectionMetadata[Number(imageID)]
       } else {
         console.log(
           `Image: ${filename} at ${dirName} does not contain metadata, please ensure it's correct`,
@@ -83,6 +84,16 @@ function gen() {
           )
       }
 
+      fs.copyFileSync(
+        `${PHOTOS_DIR}/${dirName}/${filename}`,
+        `${PUBLIC_PHOTOS_DIR}/${dirName}/${filename}`,
+      )   
+      
+      fs.copyFileSync(
+        `${PHOTOS_DIR}/${dirName}/${thumbnailFilename}`,
+        `${PUBLIC_PHOTOS_DIR}/${dirName}/${thumbnailFilename}`,
+      )
+
       images.push({
         url: `${SCHEME ? SCHEME + '://' : ''}${DOMAIN}/photos/${dirName}/${filename}`,
         thumbnailURL: `${
@@ -99,17 +110,9 @@ function gen() {
     })
   })
 
-  const photos = {
-    categories: metadata['categories'],
-    sections,
-  }
-
-  fs.writeFileSync(PHOTOS_INDEX_FILENAME, JSON.stringify(photos), {
+  fs.writeFileSync(PHOTOS_INDEX_FILENAME, JSON.stringify(sections), {
     encoding: 'utf8',
   })
-
-  shell(`rm -rf ${PUBLIC_PHOTOS_DIR}`)
-  shell(`cp -R ${PHOTOS_DIR} ${PUBLIC_PHOTOS_DIR}`)
 }
 
 gen()

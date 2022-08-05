@@ -10,10 +10,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: Section,
-    },
-    {
-      path: '/:section',
+      name: 'home',
       component: Section,
     },
   ],
@@ -21,6 +18,7 @@ export default new Router({
     if (to.hash) {
       return {
         selector: to.hash,
+        /*behavior: 'smooth',*/
       }
     }
   },

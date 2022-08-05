@@ -117,7 +117,7 @@ export default class Gallery extends Vue {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: whitesmoke;
+  background-color: rgba(245, 245, 245, 0.80);
   margin: 0;
   padding: 0;
 }

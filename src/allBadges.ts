@@ -3,7 +3,7 @@ import { Badge } from '@/types'
 export default {
   copyright: {
     name: 'copyright',
-    hint: '© Ethan Wong',
+    hint: '© Zhicheng Ling',
     icons: ['copyright'],
   },
   cc0: {
@@ -50,7 +50,7 @@ export default {
   },
   edited: {
     name: 'edited',
-    hint: 'This photo has been edited',
+    hint: 'This photo has been edited.',
     icons: ['exposure'],
   },
   location: {

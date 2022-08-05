@@ -19,22 +19,17 @@ export default class Frame extends Vue {
   width: 100%;
   aspect-ratio: 900 / 600;
   padding: 0;
-  /* margin: 30px; */
-  /* background-color: white; */
-  /* border: solid 10px black; */
-  /* box-shadow: 10px 10px 10px #ccc; */
   display: flex;
   align-items: center;
+  box-shadow: 10px 10px 10px #bbb;
   justify-content: center;
   overflow: hidden;
 }
 .frame:hover {
+  box-shadow: 10px 10px 10px rgb(43, 108, 121, 0.20);
   cursor: pointer;
 }
 .frame-photo {
-  /* max-width: 195px;
-  max-height: 130px; */
   width: 100%;
-  /* box-shadow: -5px -5px 5px 5px #ccc; */
 }
 </style>

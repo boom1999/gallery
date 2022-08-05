@@ -17,16 +17,18 @@ export default class App extends Vue {}
 <style>
 body {
   margin: 0;
+  font-weight: 200;
   font-family: 'Solway', sans-serif;
-  background-color: whitesmoke;
+  background-color: rgba(255, 255, 255);
 }
 a {
+  font-weight: 400;
   text-decoration: none;
   color: #000;
 }
 a:hover {
   text-decoration: underline;
-  color: #333;
+  color: rgba(51, 51, 51, 0.75);
 }
 ::selection {
   background: #bbb;

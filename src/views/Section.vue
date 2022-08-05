@@ -23,38 +23,22 @@
         <div class="row mt-5 gy-2">
           <div class="col-xs-12 col-md-9">
             <router-link to="/">
-              <h1 class="site-name d-inline-block">Ethan's Photo Gallery</h1>
+              <h1 class="site-name d-inline-block">Heisenberg's Photo Gallery</h1>
             </router-link>
           </div>
           <div class="col-xs-12 col-md-3 d-flex flex-row-reverse align-items-center">
-            <a class="nav-item" href="https://ethanwong.me" title="Home" target="_blank">Home</a>
+            <a class="nav-item" href="https://lingzhicheng.cn" title="Home" target="_blank">Home</a>
+            <a class="nav-item" href="https://weibo.com/u/5983398006" title="Weibo" target="_blank">Weibo</a>
             <a
               class="nav-item"
-              href="https://unsplash.com/@ethanwong/"
-              title="Unsplash"
-              target="_blank"
-              >Unsplash</a
-            >
-            <a
-              class="nav-item"
-              href="https://www.instagram.com/gettoset/"
+              href="https://www.instagram.com/zhichengling66/"
               title="Instagram"
               target="_blank"
               >Instagram</a
             >
           </div>
         </div>
-        <div class="mt-3">
-          <router-link
-            class="category-item"
-            :class="{ 'category-item-selected': currentCategoryID == id }"
-            v-for="(category, id) in this.categories"
-            :key="id"
-            :to="id"
-            >{{ category.title }}</router-link
-          >
-        </div>
-        <div v-for="(section, index) in getSections(currentCategoryID)" :key="index">
+        <div v-for="(section, index) in sections" :key="index">
           <div class="row">
             <div class="col-12 d-flex justify-content-end mt-5 mb-3">
               <h2 class="section-title">{{ section.title.replace(/=/g, ' ') }}</h2>
@@ -72,15 +56,15 @@
             </div>
           </div>
         </div>
-        <div class="mt-4">
-          <CusdisComment appID="d189c9a3-6021-4f85-a628-2486b7a2058d" :pageID="currentCategoryID" />
-        </div>
         <footer class="row my-4">
           <div class="col text-center">
             &copy;&nbsp;{{ new Date().getFullYear() }}
-            <a href="mailto:e1hanw0ng@gmail.com" title="e1hanw0ng@gmail.com">Ethan Wong</a>
+            <a href="mailto:lingzhicheng66@gmail.com" title="Gmail">Zhicheng Ling</a>
             |
-            <a href="https://github.com/GetToSet/ethanwong-photo-gallery/" title="GitHub">GitHub</a>
+            <a href="https://github.com/boom1999/" title="GitHub" target="_blank">GitHub</a>
+          </div>
+          <div class="row text-center">
+            <a href="http://beian.miit.gov.cn/" target="_blank">浙ICP备2020044847号-1</a>
           </div>
         </footer>
       </div>
@@ -89,23 +73,20 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 import axios from 'axios'
-import CusdisComment from '@/components/CusdisComment.vue'
 import Gallery from '@/components/Gallery.vue'
 import Frame from '@/components/Frame.vue'
-import { Category, Section, Image } from '@/types'
+import { Section, Image } from '@/types'
 
 @Component({
   components: {
-    CusdisComment,
     Frame,
     Gallery,
   },
 })
 export default class Home extends Vue {
   sections: Section[] = []
-  categories: Record<string, Category> = {}
   galleryImageURL: string | null = null
   galleryImageDesc: string | null = null
   badges: string[] | null = null
@@ -114,39 +95,9 @@ export default class Home extends Vue {
   downloadURL?: string
 
   created() {
-    // document.title =
     axios.get('./photos.json').then((response) => {
-      this.categories = response.data.categories
-      this.sections = response.data.sections
+      this.sections = response.data
     })
-  }
-
-  @Watch('currentCategory')
-  onChildChanged(category: Category) {
-    if (category && category.title) {
-      document.title = `${category.title} - Ethan's Photo Gallery`
-    } else {
-      document.title = "Ethan's Photo Gallery"
-    }
-  }
-
-  get currentCategory(): Category | undefined {
-    return this.categories[this.currentCategoryID]
-  }
-
-  get currentCategoryID(): string {
-    return this.$route.params.section ?? 'film'
-  }
-
-  getSections(category: string): Section[] {
-    if (!this.categories[category]) {
-      return []
-    }
-    return this.categories[category].sections
-      .map((idx) => {
-        return this.sections[idx]
-      })
-      .filter((x) => x)
   }
 
   clickImage(image: Image) {
@@ -161,34 +112,25 @@ export default class Home extends Vue {
 </script>
 <style scoped>
 .site-name {
-  font-family: 'Merriweather', serif;
-  font-size: 1.5rem;
+  font-family: 'Gill Sans', sans-serif;
+  font-size: 2.0rem;
   font-weight: 400;
   padding: 4px 6px;
-  color: #fff;
-  background: #000;
+  color: #000;
+  box-shadow: 15px 15px 20px #ccc
 }
 .page {
   margin: 0 32px;
+}
+.nav {
+  margin: 40px 0;
 }
 .nav-item {
   margin-left: 12px;
   font-size: 1.2rem;
 }
 .nav-item:hover {
-  text-decoration: underline;
-}
-.category-item {
-  display: inline-block;
   text-decoration: none;
-  font-size: 1.2rem;
-  height: 1.75rem;
-}
-.category-item-selected {
-  border-bottom: 2px solid #000;
-}
-.category-item:not(:first-child) {
-  margin-left: 8px;
 }
 .section-title {
   text-align: right;
