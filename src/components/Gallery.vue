@@ -56,7 +56,6 @@ export default class Gallery extends Vue {
   @Prop() private imageDesc!: string | null
   @Prop() private badgeNames!: string[] | null
   @Prop() private location?: string
-  @Prop() private unsplashID?: string
   @Prop() private downloadURL?: string
 
   get badges(): Badge[] {
@@ -76,13 +75,6 @@ export default class Gallery extends Vue {
       retBadges.unshift({
         ...allBadges['location'],
         hint: this.location,
-      })
-    }
-
-    if (this.unsplashID) {
-      retBadges.unshift({
-        ...allBadges['unsplash'],
-        link: `https://unsplash.com/photos/${this.unsplashID}`,
       })
     }
 

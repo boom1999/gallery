@@ -4,7 +4,6 @@ export interface Image {
   desc?: string
   badges?: string[]
   location?: string
-  unsplashID?: string
   downloadURL?: string
 }
 

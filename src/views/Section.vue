@@ -7,14 +7,12 @@
       :imageDesc="galleryImageDesc"
       :badgeNames="badges"
       :location="location"
-      :unsplashID="unsplashID"
       :downloadURL="downloadURL"
       @click.native="
         galleryImageURL = null
         galleryImageDesc = null
         badges = null
         location = undefined
-        unsplashID = undefined
         downloadURL = undefined
       "
     ></Gallery>
@@ -91,7 +89,6 @@ export default class Home extends Vue {
   galleryImageDesc: string | null = null
   badges: string[] | null = null
   location?: string
-  unsplashID?: string
   downloadURL?: string
 
   created() {
@@ -105,7 +102,6 @@ export default class Home extends Vue {
     this.galleryImageDesc = (image.desc ?? '').replace(/=/g, ' ')
     this.badges = image.badges || null
     this.location = image.location
-    this.unsplashID = image.unsplashID
     this.downloadURL = image.downloadURL
   }
 }
