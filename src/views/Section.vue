@@ -61,8 +61,10 @@
             |
             <a href="https://github.com/boom1999/gallery" title="GitHub" target="_blank">GitHub</a>
           </div>
-          <div class="row text-center">
+          <div class="cow text-center">
             <a href="http://beian.miit.gov.cn/" target="_blank">浙ICP备2020044847号-1</a>
+            |
+            <BuSuanZi></BuSuanZi>
           </div>
         </footer>
       </div>
@@ -76,11 +78,13 @@ import axios from 'axios'
 import Gallery from '@/components/Gallery.vue'
 import Frame from '@/components/Frame.vue'
 import { Section, Image } from '@/types'
+import BuSuanZi from './BuSuanZi.vue'
 
 @Component({
   components: {
     Frame,
     Gallery,
+    BuSuanZi
   },
 })
 export default class Home extends Vue {
