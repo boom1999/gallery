@@ -61,7 +61,7 @@
             &copy;&nbsp;{{ new Date().getFullYear() }}
             <a href="mailto:lingzhicheng66@gmail.com" title="Gmail">Zhicheng Ling</a>
             |
-            <a href="https://github.com/boom1999/" title="GitHub" target="_blank">GitHub</a>
+            <a href="https://github.com/boom1999/gallery" title="GitHub" target="_blank">GitHub</a>
           </div>
           <div class="row text-center">
             <a href="http://beian.miit.gov.cn/" target="_blank">浙ICP备2020044847号-1</a>
