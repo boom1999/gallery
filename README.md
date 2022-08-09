@@ -14,5 +14,5 @@
 ## What TODO Next
 
 - Comment system for each photo.
-- Views statistics.
+- ~~Views statistics.~~ Done
 - Maybe continue to modify some styles.
